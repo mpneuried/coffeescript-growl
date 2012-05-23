@@ -5,7 +5,7 @@ CoffeeScript = require "coffee-script"
 App = {}
 
 App.puts = (error, stdout, stderr) ->
-	util.puts(stdout)
+	util.puts(stdout or stderr)
 
 App.icon = "#{__dirname}/i/coffee.png"
 
@@ -14,7 +14,8 @@ App.notify = (message, type) ->
 	
 
 CoffeeScript.on 'failure', (error, task) ->
-  App.notify "#{error}","error" 
-  
+	console.log( "ERROR in " + task.file, error )
+	App.notify "#{error}","error" 
+	
 CoffeeScript.on 'success', (task) ->
-  App.notify "#{task.file} successfully compiled!","success"
+	App.notify "#{task.file} successfully compiled!","success"
